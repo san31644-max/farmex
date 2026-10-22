@@ -1,4 +1,4 @@
-name: Deploy Farmex to GitHub Pages
+name: Deploy Farmax to GitHub Pages
 
 on:
   push:
@@ -27,10 +27,16 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Prepare public website
+        run: |
+          mkdir -p _site/assets _site/images
+          cp index.html about.html tea.html estates.html agriculture.html careers.html contact.html site.css site.js .nojekyll _site/
+          cp assets/tea-landscape.jpg assets/credits.md _site/assets/
+          cp images/IMG-20260810-WA0189.jpg _site/images/
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
